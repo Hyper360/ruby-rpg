@@ -1,0 +1,61 @@
+# frozen_string_literal: true
+
+# General Item Class
+class Item
+  attr_reader :name, :desc
+
+  def initialize(name, description = "")
+    self.name = name
+    self.desc = description
+  end
+
+  def name=(value)
+    raise ArgumentError, "#{value} is not a String." unless value.is_a?(String)
+
+    @name = value
+  end
+
+  def desc=(value)
+    raise ArgumentError, "#{value} is not a String." unless value.is_a?(String)
+
+    @desc = value
+  end
+end
+
+# Weapon class
+class Weapon < Item
+  attr_reader :damage, :type
+
+  def initialize(name, damage, type)
+    super(name)
+    self.damage = damage
+    self.type = type
+  end
+
+  def damage=(value)
+    raise ArgumentError, "#{value} is not an Integer." unless value.is_a?(Integer)
+
+    @damage = value
+  end
+
+  def type=(value)
+    raise ArgumentError, "#{value} is not a Symbol." unless value.is_a?(Symbol)
+
+    unless [:sword, :maces, :bows, :spears, :daggers, :fists].include?(value)
+      raise ArgumentError, "#{value} is not a valid Symbol."
+    end
+
+    @type = value
+  end
+end
+
+# Armor class
+class Armor < Item
+  attr_reader :defense, :weight
+
+  def initialize(name, defense, weight)
+    super(name)
+    @defense = defense
+    @weight = weight
+  end
+end
