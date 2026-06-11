@@ -22,10 +22,12 @@ def game_loop(player)
     when "save"
       player.save_to_file
     when "leave"
-      switch_town(player)
+      # Random encounter already handled in random_encounter function within switch_town
+      player.location = switch_town(player)
     when "exit"
       puts "Quitting Game..."
       running = false
     end
+    sleep(1)
   end
 end

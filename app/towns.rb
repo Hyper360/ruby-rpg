@@ -2,9 +2,22 @@
 
 require_relative "constants"
 require_relative "character"
-require_relative "dialogue"
+require_relative "loader"
+
+# Random encounter system - called when moving between towns
+def random_encounter(player)
+  return unless $rand.rand(0.0..1.0) < ENCOUNTER_CHANCE
+
+  return if $enemy_templates.nil? || $enemy_templates.empty?
+
+  # Validate that enemy templates are loaded
+  raise "Enemy templates not loaded! Call load_components first" if $enemy_templates.nil? || $enemy_templates.empty?
+
+  Battle.new([player])
+end
+
 def tavern(player)
-  puts Paint[TAVERN_TEXT.sample, :italic, :gray]
+  puts Paint[$tavern_text.sample, :italic, :gray]
   sleep(0.5)
 
   action = $prompt.select(
@@ -13,7 +26,7 @@ def tavern(player)
       "Ask for a drink." => "drink",
       "Request a room for the night" => "rest",
       "Leave" => "leave",
-    },
+    }
   )
 
   case action
@@ -44,17 +57,20 @@ def general_merchant(player)
   sleep(1)
   puts "You: That sounds cool, how does it bend?"
   sleep(1)
-  puts "Merchant: It doesn't 😀👍"
+  puts "Merchant: It doesn't"
   sleep(2)
-  puts "..."
+  puts ". .."
   sleep(2)
   puts Paint["You failed to obtain the titanum rope", :red, :bold]
 end
 
 def switch_town(player)
-  player.location = $prompt.select(
+  # Random encounter check BEFORE moving to new location
+  random_encounter(player)
+
+  $prompt.select(
     Paint["You are currently in #{player.location}. Where do you want to go?", :yellow, :bold],
-    ROUTES[player.location],
+    ROUTES[player.location]
   )
 end
 
@@ -68,8 +84,6 @@ def town_interaction(player)
       "Save your progress" => "save",
       "Leave town" => "leave",
       "Quit the game" => "exit",
-    },
+    }
   )
-
-  sleep(1)
 end
