@@ -40,9 +40,9 @@ class Entity
       strategy: 1,
     }
 
-    # Proficiencies (out of 5)
-    # Main character should have 3 points to start
-    # Weapons will also be rock-paperscissors based re. battle
+    # Proficiency's (out of 5)
+    # to-do: Main character should have 3 points to start
+    # to-do: Weapons will also be rock-paper-scissors based battle
     @proficiencies = {
       swords: 0,
       maces: 0,
@@ -53,25 +53,31 @@ class Entity
     }
   end
 
+  def weapon=(new_weapon)
+    raise ArgumentError, "Argument nust be of type Weapon" unless new_weapon.is_a?(Weapon)
+
+    @weapon = new_weapon
+  end
+
+  def armor=(new_armor)
+    raise ArgumentError, "Argument nust be of type Armor" unless new_armor.is_a?(Armor)
+
+    @armor = new_armor
+  end
+
   def attribute_set(symbol, value)
     if @primary_attributes.key?(symbol)
-      unless value.between?(0, 45)
-        raise ArgumentError, "Value for Primary Attribute #{symbol} is out of range (Should be between 0-45)"
-      end
+      raise ArgumentError, "Value for Primary Attribute #{symbol} is out of range" unless value.between?(0, 45)
 
       @primary_attributes[symbol] = value
 
     elsif @secondary_attributes.key?(symbol)
-      unless value.between?(0, 15)
-        raise ArgumentError, "Value for Secondary Attribute #{symbol} is out of range (Should be between 0-15)"
-      end
+      raise ArgumentError, "Value for Secondary Attribute #{symbol} is out of range" unless value.between?(0, 15)
 
       @secondary_attributes[symbol] = value
 
     elsif @proficiencies.key?(symbol)
-      unless value.between?(0, 5)
-        raise ArgumentError, "Value for Profeciency #{symbol} is out of range (Should be between 0-5)"
-      end
+      raise ArgumentError, "Value for Profeciency #{symbol} is out of range" unless value.between?(0, 5)
 
       @proficiencies[symbol] = value
 
@@ -97,6 +103,21 @@ class Entity
     @primary_attributes.each_pair do |attribute, value|
       puts "\t#{Paint[attribute.upcase, :bold]}: #{Paint[value, :blue]}"
     end
+    proficiency_descriptor = case (@proficiencies[@weapon.type])
+      when 0
+        "incompetent"
+      when 1
+        "in-experienced"
+      when 2
+        "average"
+      when 3
+        "trained"
+      when 4
+        "experienced"
+      when 5
+        "highly-experienced"
+      end
+    puts "#{@name} is #{proficiency_descriptor} with their #{@weapon.type}"
   end
 
   def generate_action_points
@@ -104,10 +125,8 @@ class Entity
   end
 
   def damage_output
-    # Damage output is strength + (weapon_damage * (proficiency / 5) + 1) + (domination * 0.25)
-    base_damage = @primary_attributes[:strength]
-    base_damage += @weapon.damage * ((@proficiencies[@weapon.type] / 5) + 1)
-    base_damage += @secondary_attributes[:domination] * 0.25
+    base_damage = @primary_attributes[:strength] + (@secondary_attributes[:domination] / 4)
+    base_damage *= PROFICIENCY_BONUS[@proficiencies[@weapon.type]]
     $rand.rand((base_damage * 0.95)..(base_damage * 1.05))
   end
 

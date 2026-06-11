@@ -18,7 +18,7 @@ class Character < Entity
   end
 
   def creation
-    print("Welcome to #{Paint["Aldruia", :red]}. This is the legacy of: \n> ")
+    print("Welcome to #{Paint['Aldruia', :red]}. This is the legacy of: \n> ")
     @name = gets.chomp while @name.empty?
 
     CHARACTER_CREATION.each_value do |menu|
@@ -32,6 +32,8 @@ class Character < Entity
       sleep(1.5)
     end
 
+    @health = 50
+    @max_health = 50
     @location = "Bridlerry"
     system("clear")
   end
@@ -44,8 +46,9 @@ class Character < Entity
   end
 
   def location=(value)
-    unless ROUTES.include?(value)
-      raise ArgumentError, "#{value} not a valid location."
-    end
+    valid_routes = ROUTES[@location] || []
+    raise ArgumentError, "Cannot travel from #{@location} to #{value}" unless valid_routes.include?(value)
+
+    @location = value
   end
 end
