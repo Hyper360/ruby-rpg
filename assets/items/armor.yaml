@@ -1,0 +1,140 @@
+# Armor definitions for the RPG game
+---
+- id: 1
+  name: "Plain Clothes"
+  defense: 2
+  weight: 0.5
+  tier: 0
+  description: "Basic everyday clothing"
+- id: 2
+  name: "Leather Vest"
+  defense: 3
+  weight: 1.0
+  tier: 1
+  description: "Simple protective leather garments"
+- id: 3
+  name: "Traveler's Robes"
+  defense: 2
+  weight: 0.3
+  tier: 1
+  description: "Light robes for scholars and travelers"
+- id: 4
+  name: "Hunters Leather"
+  defense: 4
+  weight: 1.2
+  tier: 1
+  description: "Durable leather armor for outdoor activities"
+- id: 5
+  name: "Chain Vest"
+  defense: 4
+  weight: 2.0
+  tier: 1
+  description: "A vest of interlocked metal rings"
+- id: 6
+  name: "Studded Leather"
+  defense: 5
+  weight: 1.5
+  tier: 2
+  description: "Leather reinforced with metal studs"
+- id: 7
+  name: "Thick Leather Jacket"
+  defense: 5
+  weight: 1.8
+  tier: 2
+  description: "Heavy-duty protective clothing"
+- id: 8
+  name: "Light Plate"
+  defense: 6
+  weight: 4.0
+  tier: 2
+  description: "Lightweight metal plating for protection"
+- id: 9
+  name: "Chainmail Shirt"
+  defense: 7
+  weight: 3.5
+  tier: 2
+  description: "A shirt made of interlocking metal rings"
+- id: 10
+  name: "Banded Mail"
+  defense: 8
+  weight: 4.5
+  tier: 2
+  description: "Reinforced chainmail with additional supports"
+- id: 11
+  name: "Thick Skin"
+  defense: 6
+  weight: 0.8
+  tier: 2
+  description: "Naturally tough hide of certain creatures"
+- id: 12
+  name: "Scale Mail"
+  defense: 8
+  weight: 5.5
+  tier: 3
+  description: "Armor made from overlapping metal scales"
+- id: 13
+  name: "Splint Mail"
+  defense: 9
+  weight: 6.0
+  tier: 3
+  description: "Vertical strips of metal for maximum protection"
+- id: 14
+  name: "Heavy Leather"
+  defense: 7
+  weight: 2.5
+  tier: 3
+  description: "Tanned from the hides of great beasts"
+- id: 15
+  name: "Half Plate"
+  defense: 10
+  weight: 7.0
+  tier: 3
+  description: "Full coverage with superior mobility"
+- id: 16
+  name: "Rusted Plate"
+  defense: 8
+  weight: 8.0
+  tier: 3
+  description: "Old armor that once provided exceptional protection"
+- id: 17
+  name: "Full Plate"
+  defense: 12
+  weight: 9.5
+  tier: 3
+  description: "Complete body armor of maximum protection"
+- id: 18
+  name: "Dragon Scale Armor"
+  defense: 14
+  weight: 6.0
+  tier: 3
+  description: "Armor crafted from actual dragon scales"
+- id: 19
+  name: "Mythic Plate"
+  defense: 15
+  weight: 11.0
+  tier: 3
+  description: "Legendary armor forged in ancient fires"
+- id: 20
+  name: "Mithril Mail"
+  defense: 11
+  weight: 3.0
+  tier: 3
+  description: "Lightweight armor crafted from rare mithril ore"
+- id: 21
+  name: "Dark Armor"
+  defense: 10
+  weight: 7.5
+  tier: 3
+  description: "Armor forged in shadow metal"
+- id: 22
+  name: "Elven Cloak of Shadows"
+  defense: 4
+  weight: 0.5
+  tier: 3
+  description: "A mystical cloak that bends around the wearer"
+- id: 23
+  name: "Belt of Giant Strength"
+  defense: 8
+  weight: 0.5
+  tier: 3
+  description: "A belt that grants the wearer enhanced strength"

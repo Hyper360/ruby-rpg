@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 # General Item Class
 class Item
   attr_reader :name, :desc
@@ -26,8 +28,8 @@ end
 class Weapon < Item
   attr_reader :damage, :type
 
-  def initialize(name, damage, type)
-    super(name)
+  def initialize(name, damage, type, description = "")
+    super(name, description)
     self.damage = damage
     self.type = type
   end
@@ -41,7 +43,7 @@ class Weapon < Item
   def type=(value)
     raise ArgumentError, "#{value} is not a Symbol." unless value.is_a?(Symbol)
 
-    unless [:sword, :maces, :bows, :spears, :daggers, :fists].include?(value)
+    unless %i[swords maces bows spears daggers fists].include?(value)
       raise ArgumentError, "#{value} is not a valid Symbol."
     end
 
@@ -53,8 +55,8 @@ end
 class Armor < Item
   attr_reader :defense, :weight
 
-  def initialize(name, defense, weight)
-    super(name)
+  def initialize(name, defense, weight, description = "")
+    super(name, description)
     @defense = defense
     @weight = weight
   end

@@ -3,8 +3,26 @@
 require "tty-prompt"
 require "paint"
 
+# Global objects
 $prompt = TTY::Prompt.new
 $rand = Random.new
+$enemy_templates = {}
+$armor_pool = {}
+$weapon_pool = {}
+$item_pool = {}
+$tavern_text = []
+
+# Constants
+ENCOUNTER_CHANCE = 1.0
+ENCOUNTER_ENEMY_COUNT_CAP = 3
+PROFICIENCY_BONUS = {
+  0 => 0.5,
+  1 => 0.8,
+  2 => 1.0,
+  3 => 1.2,
+  4 => 1.5,
+  5 => 2.0
+}.freeze
 
 CHARACTER_CREATION = {
   origins: {
@@ -14,14 +32,14 @@ CHARACTER_CREATION = {
       "As an orphan, living in the mines in the northern region",
       "A child of a humble labourer",
       "A squire to a high ranking knight",
-      "As an orphan, a pickpocket in the wealthy cities",
+      "As an orphan, a pickpocket in the wealthy cities"
     ],
     effects: [
       { intelligence: 2 },
       { strength: 3, intelligence: -1 },
       { strength: 2 },
       { strength: 1, charisma: 1 },
-      { agility: 3, intelligence: -1 },
+      { agility: 3, intelligence: -1 }
     ],
   },
   hobby: {
@@ -30,28 +48,28 @@ CHARACTER_CREATION = {
       "Partake in the arts",
       "Play sports",
       "Watch the traders and merchants",
-      "Study",
+      "Study"
     ],
     effects: [
       { agility: 1 },
       { strength: 1 },
       { charisma: 1 },
-      { intelligence: 1 },
+      { intelligence: 1 }
     ],
   },
   journey: {
     message: "They made their way to Aldruia in pursuit of: ",
-    options: [
-      "Power",
-      "Fame",
-      "Adventure",
-      "Reflection",
+    options: %w[
+      Power
+      Fame
+      Adventure
+      Reflection
     ],
     effects: [
       { strength: 1, agility: -1 },
       { charisma: 1, strength: -1 },
       { agility: 1, intelligence: -1 },
-      { intelligence: 1, charisma: -1 },
+      { intelligence: 1, charisma: -1 }
     ],
   },
 }.freeze
@@ -60,14 +78,14 @@ ROUTES = {
   "Bridlerry" => ["Colwes"],
   "St. Thamesheath" => ["Colwes"],
   "Colwes" => ["Bridlerry", "St. Thamesheath", "Stonehod"],
-  "Stonehod" => ["Colwes", "Houthend", "Peleigh", "Gernard"],
+  "Stonehod" => %w[Colwes Houthend Peleigh Gernard],
   "Peleigh" => ["Stonehod"],
   "Houthend" => ["Stonehod"],
-  "Gernard" => ["Stonehod", "Hulkingford", "Lenscliffe"],
-  "Hulkingford" => ["Gernard", "Tunbright"],
-  "Tunbright" => ["Hulkingford", "Wellin"],
-  "Wellin" => ["Tunbright", "Lenscliffe"],
-  "Lenscliffe" => ["Gernard", "Wellin", "Tothet"],
-  "Tothet" => ["Lenscliffe", "Surstead"],
+  "Gernard" => %w[Stonehod Hulkingford Lenscliffe],
+  "Hulkingford" => %w[Gernard Tunbright],
+  "Tunbright" => %w[Hulkingford Wellin],
+  "Wellin" => %w[Tunbright Lenscliffe],
+  "Lenscliffe" => %w[Gernard Wellin Tothet],
+  "Tothet" => %w[Lenscliffe Surstead],
   "Surstead" => ["Tothet"],
 }.freeze

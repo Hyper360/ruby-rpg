@@ -1,0 +1,202 @@
+# Item definitions for the RPG game (consumables, currency, quest items)
+---
+- id: 1
+  name: "Healing Potion"
+  type: consumable
+  effect: {heal: 15}
+  weight: 0.3
+  tier: 1
+  quantity_max: 20
+  description: "Restores 15 HP"
+- id: 2
+  name: "Greater Healing Potion"
+  type: consumable
+  effect: {heal: 30}
+  weight: 0.4
+  tier: 2
+  quantity_max: 10
+  description: "Restores 30 HP"
+- id: 3
+  name: "Super Healing Potion"
+  type: consumable
+  effect: {heal: 50}
+  weight: 0.5
+  tier: 3
+  quantity_max: 5
+  description: "Restores 50 HP"
+- id: 4
+  name: "Full Recovery Potion"
+  type: consumable
+  effect: {heal: -1}
+  weight: 0.6
+  tier: 3
+  quantity_max: 2
+  description: "Restores HP to maximum"
+- id: 5
+  name: "Strength Tonic"
+  type: consumable
+  effect: {strength_boost: 3, duration: 180}
+  weight: 0.2
+  tier: 1
+  quantity_max: 15
+  description: "Increases strength by 3 for 3 minutes"
+- id: 6
+  name: "Agility Elixir"
+  type: consumable
+  effect: {agility_boost: 3, duration: 180}
+  weight: 0.2
+  tier: 1
+  quantity_max: 15
+  description: "Increases agility by 3 for 3 minutes"
+- id: 7
+  name: "Charisma Tonic"
+  type: consumable
+  effect: {charisma_boost: 2, duration: 180}
+  weight: 0.2
+  tier: 1
+  quantity_max: 15
+  description: "Increases charisma by 2 for 3 minutes"
+- id: 8
+  name: "Wisdom Draught"
+  type: consumable
+  effect: {intelligence_boost: 3, duration: 180}
+  weight: 0.2
+  tier: 1
+  quantity_max: 15
+  description: "Increases intelligence by 3 for 3 minutes"
+- id: 9
+  name: "Domination Serum"
+  type: consumable
+  effect: {domination_boost: 4, duration: 180}
+  weight: 0.3
+  tier: 2
+  quantity_max: 10
+  description: "Increases domination by 4 for 3 minutes"
+- id: 10
+  name: "Speed Booster"
+  type: consumable
+  effect: {speed_boost: 2, duration: 180}
+  weight: 0.2
+  tier: 2
+  quantity_max: 10
+  description: "Increases speed by 2 for 3 minutes"
+- id: 11
+  name: "Awareness Tonic"
+  type: consumable
+  effect: {awareness_boost: 3, duration: 180}
+  weight: 0.2
+  tier: 2
+  quantity_max: 10
+  description: "Increases awareness by 3 for 3 minutes"
+- id: 12
+  name: "Iron Skin Potion"
+  type: consumable
+  effect: {defense_boost: 5, duration: 180}
+  weight: 0.4
+  tier: 2
+  quantity_max: 8
+  description: "Increases defense by 5 for 3 minutes"
+- id: 13
+  name: "Stamina Elixir"
+  type: consumable
+  effect: {max_health_boost: 20}
+  weight: 0.5
+  tier: 3
+  quantity_max: 7
+  description: "Increases maximum HP by 20"
+- id: 14
+  name: "Ancient Elixir"
+  type: consumable
+  effect: {all_attributes_boost: 5, duration: 300}
+  weight: 1.0
+  tier: 3
+  quantity_max: 2
+  description: "Increases all primary attributes by 5 for 5 minutes"
+- id: 15
+  name: "Luck Charm"
+  type: consumable
+  effect: {luck_boost: true, duration: 600}
+  weight: 0.1
+  tier: 3
+  quantity_max: 2
+  description: "Increases luck for 10 minutes"
+- id: 16
+  name: "Energy Drink"
+  type: consumable
+  effect: {action_points_boost: 2}
+  weight: 0.2
+  tier: 1
+  quantity_max: 15
+  description: "Provides +2 action points"
+- id: 17
+  name: "Antidote"
+  type: consumable
+  effect: {purge_poison: true}
+  weight: 0.3
+  tier: 1
+  quantity_max: 8
+  description: "Removes poison effects"
+- id: 18
+  name: "Bandage"
+  type: consumable
+  effect: {heal: 5}
+  weight: 0.2
+  tier: 1
+  quantity_max: 10
+  description: "Basic healing bandage, restores 5 HP"
+- id: 19
+  name: "Magic Scroll: Shield"
+  type: consumable
+  effect: {temporary_armor: 8, duration: 300}
+  weight: 0.3
+  tier: 2
+  quantity_max: 5
+  description: "Creates a magical shield for 5 minutes"
+- id: 20
+  name: "Magic Scroll: Power"
+  type: consumable
+  effect: {strength_boost: 5, duration: 300}
+  weight: 0.3
+  tier: 2
+  quantity_max: 5
+  description: "Grants strength boost of 5 for 5 minutes"
+- id: 21
+  name: "Gold Coin (1g)"
+  type: currency
+  effect: {gold: 1}
+  weight: 0.01
+  tier: 1
+  quantity_max: 1000
+  description: "Standard gold currency"
+- id: 22
+  name: "Silver Coin (10g)"
+  type: currency
+  effect: {gold: 10}
+  weight: 0.1
+  tier: 1
+  quantity_max: 500
+  description: "Ten gold coin value"
+- id: 23
+  name: "Platinum Coin (100g)"
+  type: currency
+  effect: {gold: 100}
+  weight: 1.0
+  tier: 1
+  quantity_max: 100
+  description: "Hundred gold coin value"
+- id: 24
+  name: "Map Fragment"
+  type: quest
+  effect: {map_progress: 0.25}
+  weight: 0.1
+  tier: 1
+  quantity_max: 4
+  description: "A fragment of a cryptic map"
+- id: 25
+  name: "Key"
+  type: quest
+  effect: {unlock_door: true}
+  weight: 0.3
+  tier: 1
+  quantity_max: 1
+  description: "Opens locked doors"

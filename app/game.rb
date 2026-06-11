@@ -4,14 +4,10 @@
 require_relative "constants"
 require_relative "entity"
 require_relative "character"
-require_relative "dialogue"
+require_relative "loader"
 require_relative "items"
 require_relative "towns"
 require_relative "battle"
-
-def load_components
-  load_dialogues
-end
 
 def game_loop(player)
   running = true

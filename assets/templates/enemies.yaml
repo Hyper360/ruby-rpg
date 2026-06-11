@@ -1,0 +1,312 @@
+# Enemy template definitions for the RPG game
+---
+- name: "Goblin Scavenger"
+  max_health: 18
+  weapon:
+    name: "Rusty Dagger"
+    damage: 4
+    type: :daggers
+  armor:
+    name: "Tattered Cloth"
+    defense: 1
+    weight: 0.2
+  primary_attributes:
+    strength: 8
+    agility: 12
+    charisma: 3
+    intelligence: 4
+  secondary_attributes:
+    leadership: 1
+    bartering: 1
+    speed: 3
+    awareness: 5
+    domination: 1
+    elusiveness: 6
+    wit: 2
+    strategy: 1
+  proficiencies:
+    swords: 0
+    maces: 0
+    bows: 0
+    spears: 0
+    daggers: 3
+    fists: 1
+- name: "Ogre Brute"
+  max_health: 43
+  weapon:
+    name: "Iron Mace"
+    damage: 12
+    type: :maces
+  armor:
+    name: "Heavy Leather"
+    defense: 3
+    weight: 1.0
+  primary_attributes:
+    strength: 18
+    agility: 3
+    charisma: 2
+    intelligence: 5
+  secondary_attributes:
+    leadership: 4
+    bartering: 1
+    speed: 2
+    awareness: 2
+    domination: 3
+    elusiveness: 1
+    wit: 3
+    strategy: 2
+  proficiencies:
+    swords: 0
+    maces: 4
+    bows: 0
+    spears: 1
+    daggers: 0
+    fists: 2
+- name: "Forest Wolf"
+  max_health: 23
+  weapon:
+    name: "Jaw & Claws"
+    damage: 6
+    type: :fists
+  armor:
+    name: "Fur Coat"
+    defense: 2
+    weight: 0.3
+  primary_attributes:
+    strength: 10
+    agility: 14
+    charisma: 1
+    intelligence: 6
+  secondary_attributes:
+    leadership: 2
+    bartering: 1
+    speed: 5
+    awareness: 7
+    domination: 1
+    elusiveness: 8
+    wit: 3
+    strategy: 1
+  proficiencies:
+    swords: 0
+    maces: 0
+    bows: 0
+    spears: 0
+    daggers: 0
+    fists: 5
+- name: "Bandit Leader"
+  max_health: 31
+  weapon:
+    name: "Steel Sword"
+    damage: 8
+    type: :swords
+  armor:
+    name: "Chain Vest"
+    defense: 3
+    weight: 0.7
+  primary_attributes:
+    strength: 12
+    agility: 9
+    charisma: 10
+    intelligence: 9
+  secondary_attributes:
+    leadership: 9
+    bartering: 7
+    speed: 4
+    awareness: 6
+    domination: 5
+    elusiveness: 3
+    wit: 8
+    strategy: 6
+  proficiencies:
+    swords: 4
+    maces: 1
+    bows: 2
+    spears: 2
+    daggers: 1
+    fists: 1
+- name: "Gnome Tinkerer"
+  max_health: 20
+  weapon:
+    name: "Tactical Bow"
+    damage: 5
+    type: :bows
+  armor:
+    name: "Leather Jacket"
+    defense: 2
+    weight: 0.3
+  primary_attributes:
+    strength: 6
+    agility: 10
+    charisma: 7
+    intelligence: 15
+  secondary_attributes:
+    leadership: 2
+    bartering: 5
+    speed: 4
+    awareness: 8
+    domination: 2
+    elusiveness: 7
+    wit: 10
+    strategy: 9
+  proficiencies:
+    swords: 1
+    maces: 0
+    bows: 5
+    spears: 1
+    daggers: 3
+    fists: 1
+- name: "Draugr Skeleton"
+  max_health: 28
+  weapon:
+    name: "Bone Sword"
+    damage: 6
+    type: :swords
+  armor:
+    name: "Rusted Plate"
+    defense: 4
+    weight: 1.2
+  primary_attributes:
+    strength: 14
+    agility: 5
+    charisma: 1
+    intelligence: 3
+  secondary_attributes:
+    leadership: 3
+    bartering: 1
+    speed: 2
+    awareness: 1
+    domination: 6
+    elusiveness: 4
+    wit: 2
+    strategy: 1
+  proficiencies:
+    swords: 3
+    maces: 2
+    bows: 0
+    spears: 0
+    daggers: 0
+    fists: 0
+- name: "Rogue Assassin"
+  max_health: 25
+  weapon:
+    name: "Shadow Daggers"
+    damage: 7
+    type: :daggers
+  armor:
+    name: "Leather Armor"
+    defense: 3
+    weight: 0.4
+  primary_attributes:
+    strength: 9
+    agility: 16
+    charisma: 7
+    intelligence: 8
+  secondary_attributes:
+    leadership: 2
+    bartering: 4
+    speed: 6
+    awareness: 9
+    domination: 3
+    elusiveness: 10
+    wit: 6
+    strategy: 5
+  proficiencies:
+    swords: 0
+    maces: 0
+    bows: 1
+    spears: 0
+    daggers: 5
+    fists: 2
+- name: "Troll Brute"
+  max_health: 48
+  weapon:
+    name: "Ancient Axe"
+    damage: 14
+    type: :swords
+  armor:
+    name: "Thick Skin"
+    defense: 6
+    weight: 0.8
+  primary_attributes:
+    strength: 20
+    agility: 2
+    charisma: 1
+    intelligence: 3
+  secondary_attributes:
+    leadership: 5
+    bartering: 1
+    speed: 1
+    awareness: 2
+    domination: 4
+    elusiveness: 1
+    wit: 2
+    strategy: 1
+  proficiencies:
+    swords: 3
+    maces: 3
+    bows: 0
+    spears: 1
+    daggers: 0
+    fists: 2
+- name: "Ranger Scout"
+  max_health: 24
+  weapon:
+    name: "Hunter's Bow"
+    damage: 7
+    type: :bows
+  armor:
+    name: "Traveler's Vestments"
+    defense: 2
+    weight: 0.25
+  primary_attributes:
+    strength: 10
+    agility: 13
+    charisma: 6
+    intelligence: 7
+  secondary_attributes:
+    leadership: 4
+    bartering: 3
+    speed: 5
+    awareness: 9
+    domination: 2
+    elusiveness: 6
+    wit: 7
+    strategy: 5
+  proficiencies:
+    swords: 2
+    maces: 0
+    bows: 5
+    spears: 3
+    daggers: 1
+    fists: 1
+- name: "Mage Apprentice"
+  max_health: 19
+  weapon:
+    name: "Wand"
+    damage: 3
+    type: :daggers
+  armor:
+    name: "Robes"
+    defense: 1
+    weight: 0.15
+  primary_attributes:
+    strength: 4
+    agility: 6
+    charisma: 9
+    intelligence: 17
+  secondary_attributes:
+    leadership: 2
+    bartering: 3
+    speed: 3
+    awareness: 5
+    domination: 4
+    elusiveness: 4
+    wit: 12
+    strategy: 7
+  proficiencies:
+    swords: 0
+    maces: 0
+    bows: 0
+    spears: 0
+    daggers: 2
+    fists: 1
