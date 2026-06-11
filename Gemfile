@@ -4,6 +4,6 @@ source "https://rubygems.org"
 
 gem "paint"
 gem "rubocop"
-gem "ruby-lsp", require: false
+gem "ruby-lsp", require: true
 gem "tty-prompt"
 gem "yaml"
