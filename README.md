@@ -7,6 +7,7 @@ An text RPG game made in Ruby, for the purposes of building my experience with t
 - Entity Module
     - Character Module
 - Town / Exploration
+- Town stability (encounter chance variance)
 - Custom Settings
 
 ### To run this project
