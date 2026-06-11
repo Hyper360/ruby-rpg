@@ -31,12 +31,13 @@ end
 
 # Weapon class
 class Weapon < Item
-  attr_reader :damage, :type
+  attr_reader :damage, :type, :tier
 
-  def initialize(name, damage, type, description = "")
+  def initialize(name, damage, type, tier, description = "")
     super(name, description)
     self.damage = damage
     self.type = type
+    self.tier = tier
   end
 
   def damage=(value)
@@ -54,6 +55,14 @@ class Weapon < Item
 
     @type = value
   end
+
+  def tier=(value)
+    raise ArgumentError, "#{value} is not an Integer." unless value.is_a?(Integer)
+
+    raise ArgumentError, "#{value} is not a valid Integer." unless (1..5).include?(value)
+
+    @tier = value
+  end
 end
 
 # Armor class
@@ -64,5 +73,11 @@ class Armor < Item
     super(name, description)
     @defense = defense
     @weight = weight
+  end
+
+  def defense=(value)
+    raise ArgumentError, "#{value} is not an Integer." unless value.is_a?(Integer)
+
+    @defense = value
   end
 end

@@ -31,10 +31,11 @@ def load_weapon_pool
     name = data["name"]
     damage = data["damage"]
     type = data["type"]
-    data["weight"]
+    tier = data["tier"]
     description = data["description"]
+    data["weight"]
 
-    $weapon_pool[name] = Weapon.new(name, damage, type, description)
+    $weapon_pool[name] = Weapon.new(name, damage, type, tier, description)
   end
   $weapon_pool.freeze
 end
@@ -82,4 +83,6 @@ def load_components
   load_weapon_pool
   load_item_pool
   load_enemy_templates
+
+  load_weapon_stores
 end
