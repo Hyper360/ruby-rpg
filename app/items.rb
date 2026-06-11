@@ -22,6 +22,11 @@ class Item
 
     @desc = value
   end
+
+  def display
+    puts "Name: #{name}"
+    puts "Description: #{desc}"
+  end
 end
 
 # Weapon class

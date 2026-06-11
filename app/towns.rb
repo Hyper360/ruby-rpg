@@ -81,6 +81,7 @@ def town_interaction(player)
       "Visit the tavern" => "tavern",
       "See what weapons are available" => "weapons",
       "Check out the general merchant" => "general",
+      "Check your inventory" => "inventory",
       "Save your progress" => "save",
       "Leave town" => "leave",
       "Quit the game" => "exit",

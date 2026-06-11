@@ -3,6 +3,7 @@
 require_relative "constants"
 require_relative "entity"
 require_relative "items"
+require_relative "inventory"
 require "yaml"
 
 # This class is the player class and inherits the entity attributes.
@@ -13,8 +14,15 @@ class Character < Entity
   def initialize
     super
     @money = 0
-    @inventory = Array.new(30)
+    @inventory = Inventory.new(30)
     @location = "Bridlerry"
+  end
+
+  def location=(value)
+    valid_routes = ROUTES[@location] || []
+    raise ArgumentError, "Cannot travel from #{@location} to #{value}" unless valid_routes.include?(value)
+
+    @location = value
   end
 
   def creation
@@ -38,17 +46,36 @@ class Character < Entity
     system("clear")
   end
 
+  def inventory_interaction
+    loop do
+      action = inventory.inventory_menu
+
+      case action
+      when "view"
+        inventory.list_items
+      when "equip"
+        item = $prompt.select(
+          options: %w[Weapon Armor]
+        )
+        if item.is_a?(Weapon)
+          @weapon = item
+        elsif item.is_a?(Armor)
+          @armor = item
+        end
+      when "drop"
+        item = select_item
+        inventory.remove_item(item)
+      when "exit"
+        break
+      end
+      sleep(1.5)
+    end
+  end
+
   def save_to_file
     File.open("assets/saves/character.marshal", "wb") do |f|
       f.write(Marshal.dump(self))
       f.close
     end
-  end
-
-  def location=(value)
-    valid_routes = ROUTES[@location] || []
-    raise ArgumentError, "Cannot travel from #{@location} to #{value}" unless valid_routes.include?(value)
-
-    @location = value
   end
 end
