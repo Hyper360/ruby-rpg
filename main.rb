@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "app/world"
 require_relative "app/game"
-require_relative "app/loader"
 
 system("clear")
 title = <<~TEXT
@@ -32,8 +32,8 @@ title.each_line do |line|
   sleep(0.1)
   print(Paint[line, :red, :bold])
 end
-sleep(2)
-load_components
+
+$world = World.new
 
 action = $prompt.select(
   "Select an option",

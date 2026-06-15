@@ -9,7 +9,8 @@ require "yaml"
 # This class is the player class and inherits the entity attributes.
 # Handles character creation and such
 class Character < Entity
-  attr_reader :money, :inventory, :location
+  attr_accessor :money
+  attr_reader :inventory, :location
 
   def initialize
     super
@@ -19,7 +20,8 @@ class Character < Entity
   end
 
   def location=(value)
-    valid_routes = ROUTES[@location] || []
+    routes = $world.routes
+    valid_routes = routes[@location] || []
     raise ArgumentError, "Cannot travel from #{@location} to #{value}" unless valid_routes.include?(value)
 
     @location = value

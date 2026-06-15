@@ -33,7 +33,7 @@ end
 class Weapon < Item
   attr_reader :damage, :type, :tier
 
-  def initialize(name, damage, type, tier, description = "")
+  def initialize(name, damage, type, tier = 0, description = "")
     super(name, description)
     self.damage = damage
     self.type = type
@@ -59,7 +59,7 @@ class Weapon < Item
   def tier=(value)
     raise ArgumentError, "#{value} is not an Integer." unless value.is_a?(Integer)
 
-    raise ArgumentError, "#{value} is not a valid Integer." unless (1..5).include?(value)
+    raise ArgumentError, "#{value} is not a valid Integer." unless (0..5).include?(value)
 
     @tier = value
   end

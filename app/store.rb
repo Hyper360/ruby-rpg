@@ -12,41 +12,49 @@ class WeaponListing
 end
 
 class WeaponsStore
-  attr_reader :weapons
+  attr_reader :weapon_pool, :weapon_listings
 
   def initialize
-    # Generate weapon listings and prices
     @weapon_listings = []
-    generate_listings
+    regenerate_listings
   end
 
   def display_weapons
     puts "Available Weapons:"
-    @weapons_listings do |wl|}
-      puts "#{wl.name} - #{wl.weapon.description}"
-      puts "DMG: #{wl.weapon.damage}"
-      puts "PRICE: #{wl.weapon.price}"
+    @weapon_listings.each do |listing|
+      puts "#{listing.name} - #{listing.weapon.desc}"
+      puts "DMG: #{listing.weapon.damage}"
+      puts "PRICE: #{listing.price}"
     end
   end
 
-  def buy_weapon(player, weapon_index)
-    weapon = $prompt.select(
+  def buy_weapon(player)
+    return false if @weapon_listings.empty?
+
+    selected_name = $prompt.select(
       "Select a weapon to buy:",
-      @weapons.map { |name, weapon| {name: name, weapon: weapon} }
+      @weapon_listings.map(&:name)
     )
 
-    if player.gold >= weapon[:weapon].cost
-      player.gold -= cost if player.inventory.add_item(weapon)
-    end
+    selected_listing = @weapon_listings.find { |listing| listing.name == selected_name }
+    return false if selected_listing.nil?
+    return false unless player.money >= selected_listing.price
+    return false unless player.inventory.add_item(selected_listing.weapon)
+
+    player.money -= selected_listing.price
+    @weapon_listings.remove(selected_listing)
   end
 
-  def regenerate_listings
+  def regenerate_listings(_weapon_pool = @weapon_pool)
     @weapon_listings.clear
+    pool = $world.weapon_pool
+    return if pool.nil? || pool.empty?
 
-    $weapon_pool.sample(5) do |name, weapon|
+    pool.to_a.sample(5).each do |name, weapon|
       # For now, price will be damage * tier * 3
       # A more comprehensive pricing system will come later
-      price = weapon.damage * weapon.tier
+      effective_tier = [weapon.tier, 1].max
+      price = weapon.damage * effective_tier * 3
       @weapon_listings << WeaponListing.new(name, weapon, price)
     end
   end

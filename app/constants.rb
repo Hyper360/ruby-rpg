@@ -6,11 +6,7 @@ require "paint"
 # Global objects
 $prompt = TTY::Prompt.new
 $rand = Random.new
-$enemy_templates = {}
-$armor_pool = {}
-$weapon_pool = {}
-$item_pool = {}
-$tavern_text = []
+$world = nil
 
 # Constants
 ENCOUNTER_CHANCE = 1.0

@@ -5,14 +5,15 @@ require_relative "entity"
 
 class Battle
   def generate_enemy_party(count)
-    return [] if $enemy_templates.nil? || $enemy_templates.empty?
-
     enemy_party = []
     (1..count).each do
-      enemy_template = $enemy_templates.values.sample
+      enemy_template = $world.random_enemy_template
+      raise "Attempt to generate enemies before loading them" if enemy_template.nil?
+
       # Clone and reassign weapon/armor to avoid sharing references
       new_enemy = enemy_template.clone
       new_enemy.weapon = enemy_template.weapon.dup unless enemy_template.weapon.nil?
+      new_enemy.armor = enemy_template.armor.dup unless enemy_template.armor.nil?
       new_enemy.health = enemy_template.health
       enemy_party << new_enemy
     end
@@ -34,6 +35,7 @@ class Battle
                    else
                      enemy_party
                    end
+
     battle
   end
 

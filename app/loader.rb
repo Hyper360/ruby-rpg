@@ -4,30 +4,37 @@ require "yaml"
 require_relative "constants"
 require_relative "items"
 require_relative "entity"
+require_relative "store"
 
 def load_dialogues
+  tavern_text = []
+
   File.foreach("assets/text/dialogue/tavern.txt") do |line|
-    $tavern_text << line.chomp
+    tavern_text << line.chomp
   end
-  $tavern_text.freeze
+
+  tavern_text.freeze
 end
 
 def load_armor_pool
-  armor_data = YAML.load_file("assets/items/armor.yaml")
-  armor_data.each do |data|
+  armor_pool = {}
+
+  YAML.load_file("assets/items/armor.yaml").each do |data|
     name = data["name"]
     defense = data["defense"]
     weight = data["weight"]
     description = data["description"]
 
-    $armor_pool[name] = Armor.new(name, defense, weight, description)
+    armor_pool[name] = Armor.new(name, defense, weight, description)
   end
-  $armor_pool.freeze
+
+  armor_pool.freeze
 end
 
 def load_weapon_pool
-  weapons_data = YAML.load_file("assets/items/weapons.yaml")
-  weapons_data.each do |data|
+  weapon_pool = {}
+
+  YAML.load_file("assets/items/weapons.yaml").each do |data|
     name = data["name"]
     damage = data["damage"]
     type = data["type"]
@@ -35,28 +42,32 @@ def load_weapon_pool
     description = data["description"]
     data["weight"]
 
-    $weapon_pool[name] = Weapon.new(name, damage, type, tier, description)
+    weapon_pool[name] = Weapon.new(name, damage, type, tier, description)
   end
-  $weapon_pool.freeze
+
+  weapon_pool.freeze
 end
 
 def load_item_pool
-  items_data = YAML.load_file("assets/items/items.yaml")
-  items_data.each do |data|
+  item_pool = {}
+
+  YAML.load_file("assets/items/items.yaml").each do |data|
     name = data["name"]
     data["type"]
     data["effect"]
     data["weight"]
     description = data["description"]
 
-    $item_pool[name] = Item.new(name, description)
+    item_pool[name] = Item.new(name, description)
   end
-  $item_pool.freeze
+
+  item_pool.freeze
 end
 
 def load_enemy_templates
-  template_data = YAML.load_file("assets/templates/enemies.yaml")
-  template_data.each do |data|
+  enemy_templates = {}
+
+  YAML.load_file("assets/templates/enemies.yaml").each do |data|
     name = data["name"]
     max_health = data["max_health"]
     weapon_hash = data["weapon"]
@@ -65,24 +76,44 @@ def load_enemy_templates
     weapon_name = weapon_hash["name"]
     weapon_damage = weapon_hash["damage"]
     weapon_type = weapon_hash["type"]
+    weapon_tier = weapon_hash["tier"] || 0
 
     armor_name = armor_hash["name"]
     armor_defense = armor_hash["defense"]
     armor_weight = armor_hash["weight"]
 
-    $enemy_templates[name] = Entity.new(name, max_health)
-    $enemy_templates[name].weapon = Weapon.new(weapon_name, weapon_damage, weapon_type)
-    $enemy_templates[name].armor = Armor.new(armor_name, armor_defense, armor_weight)
+    enemy_templates[name] = Entity.new(name, max_health)
+    enemy_templates[name].weapon = Weapon.new(weapon_name, weapon_damage, weapon_type, weapon_tier)
+    enemy_templates[name].armor = Armor.new(armor_name, armor_defense, armor_weight)
   end
-  $enemy_templates.freeze
+
+  enemy_templates.freeze
+end
+
+def load_weapon_stores(weapon_pool)
+  weapon_stores = {}
+
+  ROUTES.each_key do |route|
+    weapon_stores[route] = WeaponsStore.new(weapon_pool)
+  end
+
+  weapon_stores.freeze
 end
 
 def load_components
-  load_dialogues
-  load_armor_pool
-  load_weapon_pool
-  load_item_pool
-  load_enemy_templates
+  tavern_text = load_dialogues
+  armor_pool = load_armor_pool
+  weapon_pool = load_weapon_pool
+  item_pool = load_item_pool
+  enemy_templates = load_enemy_templates
+  weapon_stores = load_weapon_stores(weapon_pool)
 
-  load_weapon_stores
+  {
+    tavern_text: tavern_text,
+    armor_pool: armor_pool,
+    weapon_pool: weapon_pool,
+    item_pool: item_pool,
+    enemy_templates: enemy_templates,
+    weapon_stores: weapon_stores
+  }
 end
