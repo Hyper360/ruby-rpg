@@ -42,12 +42,13 @@ action = $prompt.select(
 
 case action
 when "LOAD"
-  # Does nothing!!! :D
   system("clear")
-  player = File.open("assets/saves/character.marshal", "rb") do |f|
-    Marshal.load(f.read)
+  loaded_save = load_game_menu
+
+  if loaded_save
+    $world = loaded_save[:world]
+    game_loop(loaded_save[:player])
   end
-  game_loop(player)
 when "NEW GAME"
   system("clear")
   player = Character.new

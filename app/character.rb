@@ -74,10 +74,4 @@ class Character < Entity
     end
   end
 
-  def save_to_file
-    File.open("assets/saves/character.marshal", "wb") do |f|
-      f.write(Marshal.dump(self))
-      f.close
-    end
-  end
 end

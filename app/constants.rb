@@ -7,8 +7,10 @@ require "paint"
 $prompt = TTY::Prompt.new
 $rand = Random.new
 $world = nil
+$save_num = 0
 
 # Constants
+SAVE_DIRECTORY = "#{__dir__}/../saves".freeze
 ENCOUNTER_CHANCE = 1.0
 ENCOUNTER_ENEMY_COUNT_CAP = 3
 PROFICIENCY_BONUS = {
