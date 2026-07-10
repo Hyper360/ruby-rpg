@@ -1,0 +1,163 @@
+# Weapon definitions
+---
+- id: 1
+  name: "Fists"
+  damage: 2
+  type: :fists
+  tier: 0
+  weight: 0.0
+  description: "No weapon, just your bare hands"
+- id: 2
+  name: "Rusty Dagger"
+  damage: 4
+  type: :daggers
+  tier: 1
+  weight: 0.3
+  description: "A worn blade from desperate times"
+- id: 3
+  name: "Short Sword"
+  damage: 5
+  type: :swords
+  tier: 1
+  weight: 2.0
+  description: "A reliable sidearm for adventurers"
+- id: 4
+  name: "Throwing Knives"
+  damage: 5
+  type: :daggers
+  tier: 1
+  weight: 0.8
+  description: "Sharp blades designed to be thrown"
+- id: 5
+  name: "Iron Mace"
+  damage: 7
+  type: :maces
+  tier: 1
+  weight: 4.0
+  description: "A bludgeoning weapon that crushes through armor"
+- id: 6
+  name: "Hunting Bow"
+  damage: 6
+  type: :bows
+  tier: 1
+  weight: 2.5
+  description: "A simple bow for hunters and scouts"
+- id: 7
+  name: "Steel Dagger"
+  damage: 6
+  type: :daggers
+  tier: 2
+  weight: 0.4
+  description: "A well-crafted blade for assassins"
+- id: 8
+  name: "Broadsword"
+  damage: 7
+  type: :swords
+  tier: 2
+  weight: 3.5
+  description: "A classic one-handed sword"
+- id: 9
+  name: "War Hammer"
+  damage: 9
+  type: :maces
+  tier: 2
+  weight: 5.0
+  description: "A heavy mace for breaking through defenses"
+- id: 10
+  name: "Hunter's Bow"
+  damage: 8
+  type: :bows
+  tier: 2
+  weight: 3.0
+  description: "A powerful bow for experienced marksmen"
+- id: 11
+  name: "Shadow Daggers"
+  damage: 7
+  type: :daggers
+  tier: 2
+  weight: 0.5
+  description: "Dark steel daggers that seem to absorb light"
+- id: 12
+  name: "Knight's Sword"
+  damage: 9
+  type: :swords
+  tier: 3
+  weight: 4.0
+  description: "A well-forged blade of a trained warrior"
+- id: 13
+  name: "Battle Axe"
+  damage: 10
+  type: :swords
+  tier: 3
+  weight: 5.5
+  description: "A two-handed axe for heavy combat"
+- id: 14
+  name: "Pike"
+  damage: 9
+  type: :spears
+  tier: 3
+  weight: 6.0
+  description: "A long reaching weapon for battlefield control"
+- id: 15
+  name: "Heavy War Hammer"
+  damage: 12
+  type: :maces
+  tier: 3
+  weight: 7.0
+  description: "A devastating crushing weapon"
+- id: 16
+  name: "Tactical Bow"
+  damage: 9
+  type: :bows
+  tier: 3
+  weight: 3.5
+  description: "A composite bow with superior range and power"
+- id: 17
+  name: "Cursed Dagger"
+  damage: 8
+  type: :daggers
+  tier: 3
+  weight: 0.6
+  description: "A blade with a dark history"
+- id: 18
+  name: "Blade of Legends"
+  damage: 15
+  type: :swords
+  tier: 3
+  weight: 4.5
+  description: "A legendary blade forged by master smiths"
+- id: 19
+  name: "Ancient Axe"
+  damage: 14
+  type: :swords
+  tier: 3
+  weight: 6.5
+  description: "An old weapon from a lost era"
+- id: 20
+  name: "Bone Sword"
+  damage: 8
+  type: :swords
+  tier: 3
+  weight: 3.0
+  description: "Carved from the bones of ancient beasts"
+- id: 21
+  name: "Elven Longbow"
+  damage: 10
+  type: :bows
+  tier: 3
+  weight: 3.8
+  description: "A masterwork bow of elven craftsmanship"
+- id: 22
+  name: "Titan Mace"
+  damage: 16
+  type: :maces
+  tier: 3
+  weight: 9.0
+  description: "A crushing weapon for giants and their champions"
+- id: 23
+  name: "Dwarven Greataxe"
+  damage: 14
+  type: :swords
+  tier: 3
+  weight: 7.5
+  description: "A dwarf-forged weapon of exceptional quality"
