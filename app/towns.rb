@@ -22,7 +22,6 @@ end
 def tavern(player)
   tavern_text = $world.tavern_text
   puts Paint[(tavern_text.sample || ""), :italic, :gray]
-  sleep(0.5)
 
   action = $prompt.select(
     "What do you want to do here?",
@@ -36,11 +35,8 @@ def tavern(player)
   case action
   when "drink"
     puts Paint["Bartender: This is an alcohol free zone sir", :italic]
-    sleep(3)
     puts "You: ...What?"
-    sleep(2)
     puts Paint["You failed to obtain a drink", :red, :bold]
-    sleep(3)
   when "rest"
     player.health = player.max_health
     puts "You are fully rested"
@@ -52,31 +48,58 @@ def tavern(player)
 end
 
 def weapons_merchant(player)
-  action = $prompt.select(
-    "What do you want to do here?",
-    {
-      "Browse weapons" => "browse",
-      "Leave" => "leave",
-    }
-  )
+  store = $world.weapon_store_for(player.location)
 
-  case action
-  when "browse"
-    $world.weapon_store_for(player.location).buy_weapon(player)
-  when "leave"
-    nil
+  while true
+    action = $prompt.select(
+      "What do you want to do here?",
+      {
+        "Browse weapons" => "browse",
+        "Buy weapon" => "buy",
+        "Leave" => "leave",
+      }
+    )
+
+    case action
+    when "browse"
+      store.display_weapons
+    when "buy"
+      store.buy_weapon(player)
+    when "leave"
+      break
+    end
+  end
+end
+
+def armor_merchant(player)
+  store = $world.armor_store_for(player.location)
+
+  while true
+    action = $prompt.select(
+      "What do you want to do here?",
+      {
+        "Browse armor" => "browse",
+        "Buy armor" => "buy",
+        "Leave" => "leave",
+      }
+    )
+
+    case action
+    when "browse"
+      store.display_armors
+    when "buy"
+      store.buy_armor(player)
+    when "leave"
+      break
+    end
   end
 end
 
 def general_merchant(_player)
   puts "Merchant: Do you want titanium rope?"
-  sleep(1)
   puts "You: That sounds cool, how does it bend?"
-  sleep(1)
   puts "Merchant: It doesn't"
-  sleep(2)
   puts ". .."
-  sleep(2)
   puts Paint["You failed to obtain the titanum rope", :red, :bold]
 end
 
@@ -84,7 +107,7 @@ def switch_town(player)
   # Random encounter check BEFORE moving to new location
   random_encounter(player)
 
-  routes = $world&.routes || ROUTES
+  routes = $world.routes
 
   $prompt.select(
     Paint["You are currently in #{player.location}. Where do you want to go?", :yellow, :bold],
@@ -98,8 +121,9 @@ def town_interaction(player)
     {
       "Visit the tavern" => "tavern",
       "See what weapons are available" => "weapons",
+      "See what armor is available" => "armors",
       "Check out the general merchant" => "general",
-      "Check your inventory" => "inventory",
+      "Interact with your character" => "character",
       "Save your progress" => "save",
       "Leave town" => "leave",
       "Quit the game" => "exit",

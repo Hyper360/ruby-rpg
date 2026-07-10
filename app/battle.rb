@@ -63,8 +63,8 @@ class Battle
       "What attack do you want to use?",
       {
         "Regular Attack" => "Regular Attack",
-        "Heavy Attack (STR: #{entity.attribute(:strength)})" => "Heavy Attack",
-        "Quick Attack (SPD: #{entity.attribute(:speed)})" => "Quick Attack",
+        "Heavy Attack (STR: #{entity.stats.attribute_get(:strength)})" => "Heavy Attack",
+        "Quick Attack (SPD: #{entity.stats.attribute_get(:speed)})" => "Quick Attack",
       }
     )
   end
@@ -76,16 +76,16 @@ class Battle
     when "Regular Attack"
       entity.damage_output
     when "Heavy Attack"
-      strength_check = entity.attribute(:strength) / 18
+      strength_check = entity.stats.attribute_get(:strength) / 18
       if $rand.rand(0.0..1.0) < strength_check
         puts Paint["The heavy attack was successfully pulled off!!!", :green]
-        entity.damage_output * ((entity.attribute(:strength) / 15) + 1)
+        entity.damage_output * ((entity.stats.attribute_get(:strength) / 15) + 1)
       else
         puts Paint["The heavy attack failed!!!", :red]
         entity.damage_output * 0.5
       end
     when "Quick Attack"
-      speed_check = entity.attribute(:speed) / 18
+      speed_check = entity.stats.attribute_get(:speed) / 18
       if $rand.rand(0.0..1.0) < speed_check
         puts Paint["The quick attack was successfull!!!", :green]
         entity.damage_output
@@ -97,8 +97,8 @@ class Battle
   end
 
   def damage_input_calculation(target, damage)
-    dodge_check = (target.attribute(:speed) / 22.5)
-    parry_check = (target.attribute(:agility) / 135)
+    dodge_check = (target.stats.attribute_get(:speed) / 22.5)
+    parry_check = (target.stats.attribute_get(:agility) / 135)
 
     if $rand.rand(0.0..1.0) < dodge_check
       puts "But the attack was dodged!!!"
@@ -125,7 +125,6 @@ class Battle
     end
 
     puts "#{target.name} has died!" if target.health <= 0
-    sleep(2)
     system("clear")
   end
 
@@ -137,9 +136,7 @@ class Battle
     return unless enemy_party.any? { |e| e.health.positive? }
 
     puts "You are about to flee..."
-    sleep(1)
     print(" but then you remember that you skipped leg day...")
-    sleep(2)
     puts Paint["You failed to escape!", :red, :bold]
   end
 
@@ -212,7 +209,6 @@ class Battle
     puts Paint["You have found yourself in a battle!!!", :red]
     display_party(@player_party, Paint["Player Party:", :green])
     display_party(enemy_party, Paint["Enemy Party:", :yellow])
-    sleep(3)
     system("clear")
 
     battle_ongoing = true

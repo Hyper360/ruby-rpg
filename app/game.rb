@@ -5,6 +5,7 @@ require "yaml"
 
 # Inherits from all the other game files
 require_relative "constants"
+require_relative "world"
 require_relative "entity"
 require_relative "character"
 require_relative "loader"
@@ -20,18 +21,22 @@ def game_loop(player)
       tavern(player)
     when "weapons"
       weapons_merchant(player)
+    when "armors"
+      armor_merchant(player)
     when "general"
       general_merchant(player)
+    when "character"
+      player.character_menu
     when "save"
       modify_save_file(player)
+    when "load"
+      puts "Load during game UNIMPLEMENTED"
     when "leave"
-      # Random encounter already handled in random_encounter function within switch_town
       player.location = switch_town(player)
     when "exit"
       puts "Quitting Game..."
       running = false
     end
-    sleep(1)
   end
 end
 
@@ -50,9 +55,30 @@ def save_to_file(path, player)
   File.write(world_file, YAML.dump($world))
 end
 
+def save_slot_options(player)
+  slot_name = save_slot_name(player)
+  existing_slots = Dir.glob(File.join(SAVE_DIRECTORY, "#{slot_name}_*_player.yaml")).filter_map do |player_file|
+    save_name = File.basename(player_file, "_player.yaml")
+    match = save_name.match(/\A#{Regexp.escape(slot_name)}_(\d+)\z/)
+
+    match[1].to_i unless match.nil?
+  end.sort
+
+  display_name = slot_name.tr("_", " ")
+  next_slot = existing_slots.empty? ? 0 : existing_slots.last + 1
+  existing_slots.to_h do |slot|
+    ["Overwrite #{display_name} ##{slot}", slot]
+  end.merge("New save ##{next_slot}" => next_slot)
+end
+
+def save_game_menu(player)
+  selected_slot = $prompt.select("Choose a save slot", save_slot_options(player))
+
+  File.join(SAVE_DIRECTORY, "#{save_slot_name(player)}_#{selected_slot}")
+end
+
 def modify_save_file(player)
-  save_name = "#{save_slot_name(player)}_#{$save_num}"
-  save_path = File.join(SAVE_DIRECTORY, save_name)
+  save_path = save_game_menu(player)
 
   save_to_file(save_path, player)
   puts "Game saved."

@@ -14,9 +14,10 @@ class Character < Entity
 
   def initialize
     super
-    @money = 0
+    @money = 10_000
     @inventory = Inventory.new(30)
     @location = "Bridlerry"
+    @upgrade_points = 15
   end
 
   def location=(value)
@@ -25,6 +26,31 @@ class Character < Entity
     raise ArgumentError, "Cannot travel from #{@location} to #{value}" unless valid_routes.include?(value)
 
     @location = value
+  end
+
+  def character_menu
+    while true
+      selection = $prompt.select(
+        "Choose an option",
+        {
+          "Player Inventory" => "inventory",
+          "Upgrade Player Stats" => "stats",
+          "View Player Stats" => "list",
+          "Exit" => "exit"
+        }
+      )
+
+      case selection
+      when "inventory"
+        inventory_interaction
+      when "stats"
+        stats_menu
+      when "list"
+        stats.print
+      when "exit"
+        break
+      end
+    end
   end
 
   def creation
@@ -36,10 +62,9 @@ class Character < Entity
       result_index = menu[:options].index(result)
       result_effects = menu[:effects][result_index]
 
-      result_effects.values do |attribute, value|
-        primary_attributes[attribute] += value
+      result_effects.each do |attribute, value|
+        stats.attribute_set(attribute, stats.attribute_get(attribute) + value)
       end
-      sleep(1.5)
     end
 
     @health = 50
@@ -48,30 +73,87 @@ class Character < Entity
     system("clear")
   end
 
+  def allocate_upgrade_points
+    while upgrade_points > 0
+      action = $prompt.select(
+        "What do you want to upgrade?",
+        {
+          "Primary attributes" => "primary",
+          "Secondary attributes" => "secondary",
+          "Proficiency points" => "proficiency",
+        }
+      )
+
+      case action
+      when "primary"
+      when "secondary"
+      when "proficiency"
+      end
+    end
+  end
+
   def inventory_interaction
+    if inventory.empty?
+      puts "Nothing to do with your inventory... it is empty"
+      return
+    end
     loop do
-      action = inventory.inventory_menu
+      action = $prompt.select(
+        "What do you want to do with your inventory?",
+        {
+          "View items" => "view",
+          "Equip item" => "equip",
+          "Drop item" => "drop",
+          "Exit inventory" => "exit"
+        }
+      )
 
       case action
       when "view"
         inventory.list_items
       when "equip"
-        item = $prompt.select(
-          options: %w[Weapon Armor]
-        )
-        if item.is_a?(Weapon)
+        item = @inventory.select_item
+        if item.nil?
+          puts Paint["No available items", :red, :bold]
+          next
+        elsif item.is_a?(Weapon)
           @weapon = item
         elsif item.is_a?(Armor)
           @armor = item
+        else
+          puts "#{item.name} cannot be equipped"
+          return
         end
+        puts "#{item.name} is equipped"
+
       when "drop"
-        item = select_item
+        item = inventory.select_item
         inventory.remove_item(item)
       when "exit"
         break
       end
-      sleep(1.5)
     end
   end
 
+  def stats_menu
+    # For now, 5 upgrade points needed for proficiency growth
+    # 1 for secondary attributes
+    # 2 for primary attributes
+    while @upgrade_points.positive?
+      puts "You have #{@upgrade_points} upgrade points"
+      selection = $prompt.select(
+        "Which stat do you want to upgrade?",
+        stats.attribute_keys(points: @upgrade_points).map(&:to_s) + ["exit"]
+      ).to_sym
+      return if selection == :exit
+
+      selected_stat = stats.attribute(selection)
+
+      stats.attribute_set(selection, selected_stat[:value] + 1) if @upgrade_points >= STAT_COST[selected_stat[:type]]
+
+      @upgrade_points -= STAT_COST[selected_stat[:type]]
+
+      puts Paint["#{selection.to_s.capitalize} has been upgraded to #{stats.attribute_get(selection)}", :green]
+    end
+  end
 end

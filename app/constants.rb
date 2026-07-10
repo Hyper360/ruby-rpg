@@ -3,7 +3,7 @@
 require "tty-prompt"
 require "paint"
 
-# Global objects
+# Global objects and variables
 $prompt = TTY::Prompt.new
 $rand = Random.new
 $world = nil
@@ -11,6 +11,9 @@ $save_num = 0
 
 # Constants
 SAVE_DIRECTORY = "#{__dir__}/../saves".freeze
+TEXT_DIRECTORY = "#{__dir__}/../assets/text".freeze
+ITEMS_DIRECTORY = "#{__dir__}/../assets/items".freeze
+TEMPLATES_DIRECTORY = "#{__dir__}/../assets/templates".freeze
 ENCOUNTER_CHANCE = 1.0
 ENCOUNTER_ENEMY_COUNT_CAP = 3
 PROFICIENCY_BONUS = {
@@ -20,6 +23,12 @@ PROFICIENCY_BONUS = {
   3 => 1.2,
   4 => 1.5,
   5 => 2.0
+}.freeze
+
+STAT_COST = {
+  "primary" => 2,
+  "secondary" => 2,
+  "proficiency" => 5,
 }.freeze
 
 CHARACTER_CREATION = {

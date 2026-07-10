@@ -3,7 +3,7 @@
 require_relative "loader"
 
 class World
-  attr_reader :enemy_templates, :armor_pool, :weapon_pool, :item_pool, :tavern_text, :weapon_stores, :routes
+  attr_reader :enemy_templates, :armor_pool, :weapon_pool, :item_pool, :tavern_text, :weapon_stores, :armor_stores, :routes
 
   def initialize
     components = load_components
@@ -14,6 +14,7 @@ class World
     @weapon_pool = components[:weapon_pool]
     @item_pool = components[:item_pool]
     @weapon_stores = components[:weapon_stores]
+    @armor_stores = components[:armor_stores]
     @routes = ROUTES
   end
 
@@ -25,5 +26,9 @@ class World
 
   def weapon_store_for(location)
     @weapon_stores[location]
+  end
+
+  def armor_store_for(location)
+    @armor_stores[location]
   end
 end
